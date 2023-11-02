@@ -5,11 +5,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../features/auth/authSlice";
+import { login, resetStateAuth } from "../features/auth/authSlice";
+import { message } from "antd";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(resetStateAuth());
+  }, []);
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      navigate("/admin");
+    }
+  }, []);
   let schema = Yup.object().shape({
     email: Yup.string()
       .email("Email Should be valid")
@@ -22,23 +31,27 @@ const Login = () => {
       password: "",
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      dispatch(login(values));
-      // alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      await dispatch(login(values));
     },
   });
 
   const authState = useSelector((state) => state);
 
-  const { user, isLoading, isError, isSuccess, message } = authState.auth;
+  const { user, isLoading, isError, isSuccess } = authState.auth;
 
   useEffect(() => {
     console.log(user);
     console.log(isSuccess);
-    if (user._id != null) {
+    if (isSuccess) {
+      // message.success("Login successful");
+      dispatch(resetStateAuth());
       navigate("/admin");
-    } else {
-      navigate("");
+      // window.location.reload();
+    }
+    if (isError) {
+      // message.error("Login failed");
+      dispatch(resetStateAuth());
     }
   }, [user, isLoading, isError, isSuccess, message]);
   return (

@@ -21,6 +21,9 @@ import AddColor from "./pages/AddColor";
 import AddCat from "./pages/AddCat";
 import AddBrand from "./pages/AddBrand";
 import AddProduct from "./pages/AddProduct";
+import AddVoucher from "./pages/AddVoucher";
+import ViewEnq from "./pages/ViewEnq";
+import ViewOrder from "./pages/ViewOrder";
 
 function App() {
   return (
@@ -33,19 +36,28 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="customers" element={<Customers />} />
           <Route path="enquiries" element={<Enquiries />} />
+          <Route path="enquiries/:id" element={<ViewEnq />} />
           <Route path="list-blogs" element={<ListBlog />} />
           <Route path="blogs-category" element={<ListBlogCat />} />
           <Route path="list-colors" element={<ListColor />} />
           <Route path="list-category" element={<ListCategory />} />
           <Route path="add-category" element={<AddCat />} />
+          <Route path="add-category/:id" element={<AddCat />} />
           <Route path="list-products" element={<ListProduct />} />
-          <Route path="add-products" element={<AddProduct />} />
+          <Route path="add-product" element={<AddProduct />} />
+          <Route path="add-product/:id" element={<AddProduct />} />
           <Route path="list-brand" element={<ListBrand />} />
           <Route path="add-brand" element={<AddBrand />} />
+          <Route path="add-brand/:id" element={<AddBrand />} />
+          <Route path="add-voucher" element={<AddVoucher />} />
+          <Route path="add-voucher/:id" element={<AddVoucher />} />
           <Route path="list-vouchers" element={<ListVoucher />} />
           <Route path="orders" element={<Orders />} />
+          {/* <Route path="orders/:id" element={<ViewOrder />} /> */}
           <Route path="add-blogs" element={<AddBlog />} />
+          <Route path="add-blogs/:id" element={<AddBlog />} />
           <Route path="add-blogs-cat" element={<AddBlogCat />} />
+          <Route path="add-blogs-cat/:id" element={<AddBlogCat />} />
           <Route path="add-color" element={<AddColor />} />
         </Route>
       </Routes>

@@ -1,154 +1,152 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import brandService from "./brandService";
+import pcategoryService from "./pcategoryService";
 
-export const getBrands = createAsyncThunk(
-  "brand/get-brands",
+export const getPCategorys = createAsyncThunk(
+  "pcategory/get-pcategorys",
   async (thunkAPI) => {
     try {
-      return await brandService.getBrands();
+      return await pcategoryService.getPCategorys();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const createBrand = createAsyncThunk(
-  "brand/create-brands",
-  async (brandData, thunkAPI) => {
+export const createPCategory = createAsyncThunk(
+  "pcategory/create-pcategory",
+  async (pcategoryData, thunkAPI) => {
     try {
-      return await brandService.createBrand(brandData);
+      return await pcategoryService.createPCategory(pcategoryData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const getBrand = createAsyncThunk(
-  "brand/get-brand",
+export const getPCategory = createAsyncThunk(
+  "pcategory/get-pcategory",
   async (id, thunkAPI) => {
     try {
-      return await brandService.getBrand(id);
+      return await pcategoryService.getPCategory(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const updateBrand = createAsyncThunk(
-  "brand/update-brands",
-  async (brandData, thunkAPI) => {
+export const updatePCategory = createAsyncThunk(
+  "pcategory/update-pcategory",
+  async (pcategoryData, thunkAPI) => {
     try {
-      return await brandService.updateBrand(brandData);
+      return await pcategoryService.updatePCategory(pcategoryData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const deleteBrand = createAsyncThunk(
-  "brand/delete-brand",
+export const deletePCategory = createAsyncThunk(
+  "pcategory/delete-pcategory",
   async (id, thunkAPI) => {
     try {
-      return await brandService.deleteBrand(id);
+      return await pcategoryService.deletePCategory(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const resetStateBrand = createAction("Reset-all-brand");
-
+export const resetStatePCategory = createAction("Reset-all-pcategories");
 const initialState = {
-  brands: [],
+  pcategorys: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
   message: "",
 };
 
-export const brandSlice = createSlice({
-  name: "brands",
+export const pcategorySlice = createSlice({
+  name: "pcategorys",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getBrands.pending, (state) => {
+      .addCase(getPCategorys.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getBrands.fulfilled, (state, action) => {
+      .addCase(getPCategorys.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.brands = action.payload;
+        state.pcategorys = action.payload;
       })
-      .addCase(getBrands.rejected, (state, action) => {
+      .addCase(getPCategorys.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(getBrand.pending, (state) => {
+      .addCase(getPCategory.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getBrand.fulfilled, (state, action) => {
+      .addCase(getPCategory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.brandName = action.payload.title;
+        state.categoryName = action.payload.title;
       })
-      .addCase(getBrand.rejected, (state, action) => {
+      .addCase(getPCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(createBrand.pending, (state) => {
+      .addCase(createPCategory.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createBrand.fulfilled, (state, action) => {
+      .addCase(createPCategory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createdBrand = action.payload;
+        state.createdPCategory = action.payload;
       })
-      .addCase(createBrand.rejected, (state, action) => {
+      .addCase(createPCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(deleteBrand.pending, (state) => {
+      .addCase(updatePCategory.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteBrand.fulfilled, (state, action) => {
+      .addCase(updatePCategory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.deletedBrand = action.payload;
+        state.updatedPCategory = action.payload;
       })
-      .addCase(deleteBrand.rejected, (state, action) => {
+      .addCase(updatePCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(updateBrand.pending, (state) => {
+      .addCase(deletePCategory.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateBrand.fulfilled, (state, action) => {
+      .addCase(deletePCategory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.updatedBrand = action.payload;
+        state.deletedPCategory = action.payload;
       })
-      .addCase(updateBrand.rejected, (state, action) => {
+      .addCase(deletePCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-
-      .addCase(resetStateBrand, () => initialState);
+      .addCase(resetStatePCategory, () => initialState);
   },
 });
-export default brandSlice.reducer;
+export default pcategorySlice.reducer;

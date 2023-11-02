@@ -1,35 +1,38 @@
 import { Table } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../features/customer/customerSlice";
+import {
+  getUsers,
+  resetStateCustomer,
+} from "../features/customer/customerSlice";
 
+const columns = [
+  // {
+  //   title: "STT",
+  //   dataIndex: "key",
+  // },
+  {
+    title: "Name",
+    dataIndex: "name",
+    sorter: (a, b) => a.name.localeCompare(b.name),
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+  },
+  {
+    title: "Mobile",
+    dataIndex: "mobile",
+  },
+];
 const Customers = () => {
-  const columns = [
-    // {
-    //   title: "STT",
-    //   dataIndex: "key",
-    // },
-    {
-      title: "Name",
-      dataIndex: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-    },
-    {
-      title: "Mobile",
-      dataIndex: "mobile",
-    },
-  ];
-
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log("hello");
+    dispatch(resetStateCustomer());
     dispatch(getUsers());
   }, []);
   const customerstate = useSelector((state) => state.customer.customers);
-  console.log("customerstate", customerstate);
   const data1 = [];
   for (let i = 0; i < customerstate.length; i++) {
     if (customerstate[i].role !== "admin") {

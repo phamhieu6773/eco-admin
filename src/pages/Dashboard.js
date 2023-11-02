@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BsArrowDownRight, BsArrowUpRight } from "react-icons/bs";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
+import { useDispatch } from "react-redux";
+import { getUser } from "../features/customer/customerSlice";
 // import Column from "antd/es/table/Column";
 const columns = [
   {
@@ -111,7 +113,7 @@ const Dashboard = () => {
     },
   };
   return (
-    <div >
+    <div>
       <h3 className="mb-4 title">Dashboard</h3>
       <div className="d-flex justify-content-between align-items-center gap-3 row">
         <div className="d-flex rounded-2 justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3 col-lg">

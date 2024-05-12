@@ -41,8 +41,6 @@ const Login = () => {
   const { user, isLoading, isError, isSuccess } = authState.auth;
 
   useEffect(() => {
-    console.log(user);
-    console.log(isSuccess);
     if (isSuccess) {
       // message.success("Login successful");
       dispatch(resetStateAuth());

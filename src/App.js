@@ -53,7 +53,7 @@ function App() {
           <Route path="add-voucher/:id" element={<AddVoucher />} />
           <Route path="list-vouchers" element={<ListVoucher />} />
           <Route path="orders" element={<Orders />} />
-          {/* <Route path="orders/:id" element={<ViewOrder />} /> */}
+          <Route path="orders/:id" element={<ViewOrder />} />
           <Route path="add-blogs" element={<AddBlog />} />
           <Route path="add-blogs/:id" element={<AddBlog />} />
           <Route path="add-blogs-cat" element={<AddBlogCat />} />

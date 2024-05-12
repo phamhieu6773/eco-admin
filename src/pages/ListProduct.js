@@ -61,7 +61,6 @@ const ListProduct = () => {
     setOpenModel(false);
   };
   const productState = useSelector((state) => state.product.products);
-  console.log("productState", productState);
   const data1 = [];
   for (let i = 0; i < productState.length; i++) {
     data1.push({

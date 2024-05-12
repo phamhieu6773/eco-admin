@@ -1,9 +1,20 @@
 import React from "react";
 
 const CustomInput = (props) => {
-  const { type, label, i_id, i_class, name, val, onCh, onBl } = props;
+  const {
+    type,
+    label,
+    i_id,
+    i_class,
+    name,
+    val,
+    onCh,
+    onBl,
+    onKeyPress,
+    onKeyDown,
+  } = props;
   return (
-    <div className="form-floating mt-3">
+    <div className="form-floating w-100 mt-3">
       <input
         type={type}
         // autocomplete="off"
@@ -14,6 +25,8 @@ const CustomInput = (props) => {
         value={val}
         onChange={onCh}
         onBlur={onBl}
+        onKeyPress={onKeyPress}
+        onKeyDown={onKeyDown}
       />
       <label htmlFor={label}>{label}</label>
     </div>

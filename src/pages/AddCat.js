@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import {
 import { message } from "antd";
 import { useFormik } from "formik";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { MdDeleteOutline } from "react-icons/md";
 
 let schema = Yup.object().shape({
   title: Yup.string().required("Product Category is Required"),
@@ -20,6 +21,8 @@ const AddCat = () => {
   const dispatch = new useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState("");
+  const [data, setData] = useState([]);
   const getIdPCategory = location.pathname.split("/")[3];
   const newPCategory = useSelector((state) => state.pcategory);
   const {
@@ -52,6 +55,29 @@ const AddCat = () => {
     }
   }, [isError, isLoading, isSuccess]);
 
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      addItem();
+    }
+  };
+
+  const addItem = () => {
+    if (inputValue.trim() !== "") {
+      setData([...data, inputValue]);
+      setInputValue("");
+    }
+  };
+
+  const removeItem = (index) => {
+    const newData = [...data];
+    newData.splice(index, 1);
+    setData(newData);
+  };
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -70,6 +96,11 @@ const AddCat = () => {
       }
     },
   });
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Ngăn chặn việc submit mặc định của form
+    }
+  };
 
   return (
     <div>
@@ -82,10 +113,45 @@ const AddCat = () => {
           onBl={formik.handleBlur("title")}
           val={formik.values.title}
           id="brand"
+          onKeyDown={handleKeyDown}
         />
         <div className="error">
           {formik.touched.title && formik.errors.title}
         </div>
+        <div className="d-flex">
+          <CustomInput
+            type="text"
+            val={inputValue}
+            label="Enter Product Attributes"
+            onCh={handleInputChange}
+            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
+          />
+          <button
+            type="button"
+            className="btn btn-success border-0 mt-3 ms-2"
+            onClick={addItem}
+          >
+            OK
+          </button>
+        </div>
+        <ul className="list-group mt-2">
+          {data.map((item, index) => (
+            <li
+              className="list-group-item list-group-item-success position-relative"
+              key={index}
+            >
+              {item}
+              <div
+                className="position-absolute top-50 end-0 translate-middle-y cursor-pointer"
+                onClick={() => removeItem(index)}
+              >
+                <MdDeleteOutline className="me-2 fs-4" />
+              </div>
+            </li>
+          ))}
+        </ul>
+
         <button
           className="btn btn-success border-0 rounded-3 my-5"
           type="submit"

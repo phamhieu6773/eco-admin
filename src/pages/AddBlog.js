@@ -23,25 +23,6 @@ import { getBCategorys } from "../features/bcategory/bcategorySlice";
 import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 import { useRef } from "react";
 import { logDOM } from "@testing-library/react";
-// const props = {
-//   name: "file",
-//   multiple: true,
-//   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-//   onChange(info) {
-//     const { status } = info.file;
-//     if (status !== "uploading") {
-//       console.log(info.file, info.fileList);
-//     }
-//     if (status === "done") {
-//       message.success(`${info.file.name} file uploaded successfully.`);
-//     } else if (status === "error") {
-//       message.error(`${info.file.name} file upload failed.`);
-//     }
-//   },
-//   onDrop(e) {
-//     console.log("Dropped files", e.dataTransfer.files);
-//   },
-// };
 
 let schema = Yup.object().shape({
   title: Yup.string().required("Title is Required"),
@@ -145,7 +126,7 @@ const AddBlog = () => {
     },
     onRemove: (file) => {
       const position = listImg.findIndex(
-        (element) => element.name === file.name
+        (element) => element.public_id === file.public_id
       );
       dispatch(delImg(img.current[position].public_id));
       img.current.splice(position, 1);
@@ -166,10 +147,7 @@ const AddBlog = () => {
   ]);
   useEffect(() => {
     formik.values.images = listImg;
-    // console.log(listImg);
   }, [imgState, blogImages]);
-
-  console.log("img.corr", img.current);
 
   const formats = [
     "header",

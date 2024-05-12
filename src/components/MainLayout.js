@@ -28,6 +28,8 @@ import {
   resetStateCustomer,
 } from "../features/customer/customerSlice";
 import useSelection from "antd/es/table/hooks/useSelection";
+import axios from "axios";
+import { base_url } from "../utils/base_url";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -89,7 +91,6 @@ const MainLayout = () => {
   // }, []);
 
   const userState = useSelector((state) => state.customer);
-  console.log(userState);
   const {
     token: { colorBgContainer },
   } = theme.useToken();

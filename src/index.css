@@ -2,6 +2,10 @@ body {
   font-family: Roboto, sans-serif;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .trigger {
   padding: 0 24px;
   font-size: 18px;
@@ -105,6 +109,14 @@ main::-webkit-scrollbar {
 
 .ant-table-thead th.ant-table-cell::before {
   background-color: #1890ff !important;
+}
+
+.ant-select-selector {
+  height: 56px;
+}
+
+.ant-select-selection-placeholder {
+  color: black !important;
 }
 
 /* Smartphones (portrait) */

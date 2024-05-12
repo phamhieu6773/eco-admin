@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { createColor, resetStateColor } from "../features/color/colorSlice";
 import { useFormik } from "formik";
+import { Table, Input, Button, Space } from 'antd';
+import { tab } from "@testing-library/user-event/dist/tab";
 
 let schema = Yup.object().shape({
   title: Yup.string().required("Color is Required"),
@@ -55,6 +57,10 @@ const AddColor = () => {
       // }
     },
   });
+
+
+  
+
   return (
     <div>
       <h3 className="mb-4">Add Color</h3>
@@ -70,6 +76,8 @@ const AddColor = () => {
         <div className="error">
           {formik.touched.title && formik.errors.title}
         </div>
+
+        
         <button
           className="btn btn-success border-0 rounded-3 my-5"
           type="submit"

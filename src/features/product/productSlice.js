@@ -91,6 +91,7 @@ export const productSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getProduct.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
@@ -104,6 +105,8 @@ export const productSlice = createSlice({
         state.productColor = action.payload.getProduct.color;
         state.productQuantity = action.payload.getProduct.quantity;
         state.productImages = action.payload.getProduct.images;
+        state.productVariations = action.payload.getProduct.variations;
+        state.productClassify = action.payload.getProduct.classify;
       })
       .addCase(getProduct.rejected, (state, action) => {
         state.isLoading = false;

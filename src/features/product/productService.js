@@ -20,7 +20,7 @@ const getProduct = async (id) => {
   return response.data;
 };
 const updateProduct = async (product) => {
-  console.log("product", product);
+  console.log("product", product.productData);
   const response = await axiosJWT.put(
     `${base_url}product/updateproduct/${product.id}`,
     {
@@ -29,10 +29,12 @@ const updateProduct = async (product) => {
       price: product.productData.price,
       brand: product.productData.brand,
       category: product.productData.category,
+      // color: product.productData.color,
       tags: product.productData.tags,
-      color: product.productData.color,
-      quantity: product.productData.quantity,
       images: product.productData.images,
+      quantity: product.productData.quantity,
+      classify: product.productData.classify,
+      variations: product.productData.variations
     }
   );
   return response.data;

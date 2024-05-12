@@ -15,24 +15,35 @@ import { base_url } from "./base_url";
 //   },
 // };
 
-const getRefreshToken = JSON.parse(localStorage.getItem("refreshToken"));
-const getEmail = JSON.parse(localStorage.getItem("email"));
-
+// const refreshToken = async () => {
+//   try {
+//     const response = await axios.post(
+//       `${base_url}user/refresh`,
+//       {
+//         email: getEmail,
+//         refreshToken: getRefreshToken,
+//       },
+//       { withCredentials: true }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 const refreshToken = async () => {
   try {
-    const response = await axios.post(`${base_url}user/refresh`, {
-      email: getEmail,
-      refreshToken: getRefreshToken,
+    const response = await axios.get(`${base_url}user/refresh-admin`, {
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    localStorage.removeItem("user");
+    window.location.reload();
   }
 };
 
 const axiosJWT = axios.create();
 
-// export const config =
 axiosJWT.interceptors.request.use(
   async (config) => {
     let currentDate = new Date();
@@ -41,7 +52,6 @@ axiosJWT.interceptors.request.use(
 
     if (decodedToken.exp * 1000 < currentDate.getTime()) {
       const data = await refreshToken();
-      // config = data.accessToken;
       if (data.accessToken) {
         localStorage.setItem("token", '"' + data?.accessToken + '"');
       }

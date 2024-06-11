@@ -96,6 +96,7 @@ export const voucherSlice = createSlice({
         state.voucherName = action.payload.name;
         state.voucherExpiry = action.payload.expiry;
         state.voucherDiscount = action.payload.discount;
+        state.voucherNumber = action.payload.number;
       })
       .addCase(getVoucher.rejected, (state, action) => {
         state.isLoading = false;

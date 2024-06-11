@@ -31,10 +31,10 @@ const columns = [
     dataIndex: "category",
     sorter: (a, b) => a.category.localeCompare(b.category),
   },
-  {
-    title: "Color",
-    dataIndex: "color",
-  },
+  // {
+  //   title: "Color",
+  //   dataIndex: "color",
+  // },
   {
     title: "Price",
     dataIndex: "price",

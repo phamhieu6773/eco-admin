@@ -4,9 +4,15 @@ import config from "../../utils/axiosconfig";
 import axiosJWT from "../../utils/axiosconfig";
 
 const getProducts = async () => {
-  const response = await axios.get(`${base_url}product/all-products`);
+  const response = await axiosJWT.get(`${base_url}product/all-products-store`);
   return response.data;
 };
+
+const getCountProducts = async () => {
+  const response = await axiosJWT.get(`${base_url}product/count-products-store`);
+  return response.data;
+};
+
 const createProduct = async (product) => {
   const response = await axiosJWT.post(
     `${base_url}product/createproduct`,
@@ -51,6 +57,7 @@ const productService = {
   getProduct,
   updateProduct,
   deleteProduct,
+  getCountProducts
 };
 
 export default productService;

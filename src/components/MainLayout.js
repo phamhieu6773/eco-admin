@@ -7,7 +7,7 @@ import { IoIosNotifications, IoMdAddCircle } from "react-icons/io";
 import { GoPeople } from "react-icons/go";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { SiBrandfolder } from "react-icons/si";
-import { FaBlog, FaClipboardList, FaListUl } from "react-icons/fa";
+import { FaBlog, FaClipboardList, FaListUl, FaCheckCircle } from "react-icons/fa";
 import {
   MdOutlineCategory,
   MdOutlineColorLens,
@@ -30,6 +30,7 @@ import {
 import useSelection from "antd/es/table/hooks/useSelection";
 import axios from "axios";
 import { base_url } from "../utils/base_url";
+import { resetStateUser } from "../features/user/userSlice";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -39,49 +40,10 @@ function getItem(label, key, icon, children) {
     label,
   };
 }
-const items = [
-  getItem("Dashboard", "", <MdDashboardCustomize className="fs-4" />),
-  // getItem('Option 2', '2', <DesktopOutlined />),
-  getItem("Customers", "customers", <MdPeopleAlt className="fs-4" />),
 
-  getItem("Product", "products", <GrProductHunt className="fs-4" />, [
-    getItem("Add Product", "add-product", <IoMdAddCircle className="fs-4" />),
-    getItem("List Product", "list-products", <FaListUl className="fs-4" />),
-    getItem("Add Brand", "add-brand", <SiBrandfolder className="fs-4" />),
-    getItem("List Brand", "list-brand", <FaListUl className="fs-4" />),
-    getItem(
-      "Add Category",
-      "add-category",
-      <MdOutlineCategory className="fs-4" />
-    ),
-    getItem("List Category", "list-category", <FaListUl className="fs-4" />),
-    getItem("Add Color", "add-color", <MdOutlineColorLens className="fs-4" />),
-    getItem("List Color", "list-colors", <FaListUl className="fs-4" />),
-  ]),
-  getItem("Orders", "orders", <BsFillCartCheckFill className="fs-4" />),
-  getItem("Voucher", "vouchers", <BiSolidDiscount className="fs-4" />, [
-    getItem("Add Vocher", "add-voucher", <IoMdAddCircle className="fs-4" />),
-    getItem("List Voucher", "list-vouchers", <FaListUl className="fs-4" />),
-  ]),
-  getItem("Blog", "blogs", <FaBlog className="fs-4" />, [
-    getItem("Add Blog", "add-blogs", <IoMdAddCircle className="fs-4" />),
-    getItem("List Blog", "list-blogs", <FaListUl className="fs-4" />),
-    getItem(
-      "Add Blog Category",
-      "add-blogs-cat",
-      <IoMdAddCircle className="fs-4" />
-    ),
-    getItem(
-      "List Blog Category",
-      "blogs-category",
-      <FaListUl className="fs-4" />
-    ),
-  ]),
-  getItem("Enquiries", "enquiries", <FaClipboardList className="fs-4" />),
-];
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const checkUser = async () => {
   //   await dispatch(resetStateCustomer());
   //   await dispatch(getUser(JSON.parse(localStorage.getItem("user"))?._id));
@@ -89,7 +51,49 @@ const MainLayout = () => {
   // useEffect(() => {
   //   checkUser();
   // }, []);
-
+  const userInfo = JSON.parse(localStorage.getItem("user"));
+  console.log(userInfo);
+  const items = [
+    getItem("Dashboard", "", <MdDashboardCustomize className="fs-4" />),
+    // getItem('Option 2', '2', <DesktopOutlined />),
+    getItem("Customers", "customers", <MdPeopleAlt className="fs-4" />),
+  
+    getItem("Product", "products", <GrProductHunt className="fs-4" />, [
+      getItem("Add Product", "add-product", <IoMdAddCircle className="fs-4" />),
+      getItem("List Product", "list-products", <FaListUl className="fs-4" />),
+      getItem("Add Brand", "add-brand", <SiBrandfolder className="fs-4" />),
+      getItem("List Brand", "list-brand", <FaListUl className="fs-4" />),
+      getItem(
+        "Add Category",
+        "add-category",
+        <MdOutlineCategory className="fs-4" />
+      ),
+      getItem("List Category", "list-category", <FaListUl className="fs-4" />),
+      getItem("Add Color", "add-color", <MdOutlineColorLens className="fs-4" />),
+      getItem("List Color", "list-colors", <FaListUl className="fs-4" />),
+    ]),
+    getItem("Orders", "orders", <BsFillCartCheckFill className="fs-4" />),
+    getItem("Voucher", "vouchers", <BiSolidDiscount className="fs-4" />, [
+      getItem("Add Vocher", "add-voucher", <IoMdAddCircle className="fs-4" />),
+      getItem("List Voucher", "list-vouchers", <FaListUl className="fs-4" />),
+    ]),
+    getItem("Blog", "blogs", <FaBlog className="fs-4" />, [
+      getItem("Add Blog", "add-blogs", <IoMdAddCircle className="fs-4" />),
+      getItem("List Blog", "list-blogs", <FaListUl className="fs-4" />),
+      getItem(
+        "Add Blog Category",
+        "add-blogs-cat",
+        <IoMdAddCircle className="fs-4" />
+      ),
+      getItem(
+        "List Blog Category",
+        "blogs-category",
+        <FaListUl className="fs-4" />
+      ),
+    ]),
+    getItem("Enquiries", "enquiries", <FaClipboardList className="fs-4" />),
+    userInfo?.role === "systemadmin" ? getItem("Approve Store", "approveStore", <FaCheckCircle className="fs-4" />) : "",
+  ];
   const userState = useSelector((state) => state.customer);
   const {
     token: { colorBgContainer },
@@ -297,7 +301,7 @@ const MainLayout = () => {
                   className="rounded"
                   width={32}
                   height={32}
-                  src="https://scontent-hkg4-1.xx.fbcdn.net/v/t1.6435-9/165265198_491391515374037_3525950762385328428_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=be3454&_nc_ohc=l8hsJlwwkNEAX8qHSIA&_nc_ht=scontent-hkg4-1.xx&oh=00_AfA3R7Hr8etPSitIQJhn0Th_SmHckq5C6X3RqqSicpnW2g&oe=6558AFB7"
+                  src="https://res.cloudinary.com/ddzcejiyv/image/upload/v1715939419/t0ahyefvwrwr9flrgkgt.jpg"
                   alt="avatar"
                 />
               </div>
@@ -327,6 +331,7 @@ const MainLayout = () => {
                       style={{ height: "auto", lineHeight: "20px" }}
                       onClick={() => {
                         localStorage.removeItem("user");
+                        dispatch(resetStateUser());
                       }}
                     >
                       Signout

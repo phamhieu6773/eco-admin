@@ -9,6 +9,7 @@ import voucherReducer from "../features/voucher/voucherSlice";
 import blogReducer from "../features/blog/blogSlice";
 import bcateogryReducer from "../features/bcategory/bcategorySlice";
 import enquiryReducer from "../features/enquiry/enquirySlice";
+import storeReducer from "../features/store/storeSlice";
 import uploadReducer from "../features/upload/uploadSlice";
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     blog: blogReducer,
     bcategory: bcateogryReducer,
     enquiry: enquiryReducer,
+    store: storeReducer,
     upload: uploadReducer,
   },
 });

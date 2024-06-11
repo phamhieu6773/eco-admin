@@ -24,6 +24,8 @@ import AddProduct from "./pages/AddProduct";
 import AddVoucher from "./pages/AddVoucher";
 import ViewEnq from "./pages/ViewEnq";
 import ViewOrder from "./pages/ViewOrder";
+import ApproveStore from "./pages/ApproveStore";
+import UpdateStore from "./pages/UpdateStore";
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="customers" element={<Customers />} />
           <Route path="enquiries" element={<Enquiries />} />
+          <Route path="approveStore" element={<ApproveStore />} />
+          <Route path="approveStore/:id" element={<UpdateStore />} />
           <Route path="enquiries/:id" element={<ViewEnq />} />
           <Route path="list-blogs" element={<ListBlog />} />
           <Route path="blogs-category" element={<ListBlogCat />} />

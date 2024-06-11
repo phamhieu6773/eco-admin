@@ -494,14 +494,14 @@ const AddProduct = () => {
         window.location.reload();
       } else {
         dispatch(createProduct(values));
-        formik.resetForm();
-        setColor([]);
-        setListImg([]);
-        setTimeout(() => {
-          dispatch(resetState());
-          dispatch(resetStateImg());
-          dispatch(resetStateColor());
-        }, 300);
+        // formik.resetForm();
+        // setColor([]);
+        // setListImg([]);
+        // setTimeout(() => {
+        //   dispatch(resetState());
+        //   dispatch(resetStateImg());
+        //   dispatch(resetStateColor());
+        // }, 300);
       }
     },
   });

@@ -4,7 +4,7 @@ import config from "../../utils/axiosconfig";
 import axiosJWT from "../../utils/axiosconfig";
 
 const getVouchers = async () => {
-  const response = await axios.get(`${base_url}voucher/all-vouchers`);
+  const response = await axiosJWT.get(`${base_url}voucher/all-vouchers`);
   return response.data;
 };
 
@@ -14,7 +14,7 @@ const createVoucher = async (voucher) => {
 };
 
 const getVoucher = async (id) => {
-  const response = await axios.get(`${base_url}voucher/${id}`);
+  const response = await axiosJWT.get(`${base_url}voucher/${id}`);
   return response.data;
 };
 
@@ -25,6 +25,7 @@ const updateVoucher = async (voucher) => {
       name: voucher.voucherData.name,
       expiry: voucher.voucherData.expiry,
       discount: voucher.voucherData.discount,
+      number: voucher.voucherData.number
     }
   );
   return response.data;

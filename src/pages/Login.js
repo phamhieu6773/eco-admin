@@ -41,7 +41,7 @@ const Login = () => {
   const { user, isLoading, isError, isSuccess } = authState.auth;
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && user._id) {
       // message.success("Login successful");
       dispatch(resetStateAuth());
       navigate("/admin");

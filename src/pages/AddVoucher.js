@@ -21,6 +21,7 @@ let schema = Yup.object().shape({
   name: Yup.string().required("Voucher Name is Required"),
   expiry: Yup.date().required("Expiry Date is Required"),
   discount: Yup.number().required("Discount Percentage is Required"),
+  number: Yup.number().required("Number is Required"),
 });
 
 const AddVoucher = () => {
@@ -41,6 +42,7 @@ const AddVoucher = () => {
     voucherName,
     voucherDiscount,
     voucherExpiry,
+    voucherNumber,
     updatedVouher,
   } = newVoucher;
   console.log("voucherExpiry", voucherExpiry);
@@ -72,6 +74,7 @@ const AddVoucher = () => {
       name: voucherName || "",
       expiry: changeDateFormet(voucherExpiry) || "",
       discount: voucherDiscount || "",
+      number: voucherNumber || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -125,6 +128,18 @@ const AddVoucher = () => {
         />
         <div className="error">
           {formik.touched.discount && formik.errors.discount}
+        </div>
+        <CustomInput
+          type="number"
+          name="number"
+          onCh={formik.handleChange("number")}
+          onBl={formik.handleBlur("number")}
+          val={formik.values.number}
+          label="Enter Number"
+          id="number"
+        />
+        <div className="error">
+          {formik.touched.number && formik.errors.number}
         </div>
         <button
           className="btn btn-success border-0 rounded-3 my-5"

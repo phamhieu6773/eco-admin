@@ -56,6 +56,17 @@ export const getAOrder = createAsyncThunk(
   }
 );
 
+export const getCountOrders = createAsyncThunk(
+  "product/get-count-orders",
+  async (thunkAPI) => {
+    try {
+      return await authService.getCountOrders();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const updateOrderStatus = createAsyncThunk(
   "order/update-status-order",
   async (data, thunkAPI) => {
@@ -101,6 +112,21 @@ export const authSlice = createSlice({
         state.orders = action.payload;
       })
       .addCase(getOrders.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(getCountOrders.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCountOrders.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.countOrders = action.payload;
+      })
+      .addCase(getCountOrders.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

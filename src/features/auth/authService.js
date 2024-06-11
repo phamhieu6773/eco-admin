@@ -28,6 +28,11 @@ const getAOrder = async (id) => {
   const response = await axios.get(`${base_url}user/cart/get-order/${id}`);
   return response.data;
 };
+const getCountOrders = async () => {
+  const response = await axiosJWT.get(`${base_url}user/cart/getallorderscount`);
+  return response.data;
+};
+
 
 const updateOrderStatus = async (data) => {
   const response = await axiosJWT.put(`${base_url}user/cart/update-order-status/${data?.id}`, { status: data.orderStatus });
@@ -38,7 +43,8 @@ const authService = {
   login,
   getOrders,
   getAOrder,
-  updateOrderStatus
+  updateOrderStatus,
+  getCountOrders
 };
 
 export default authService;
